@@ -9,6 +9,7 @@ export const getData = async (filepath) => {
             .pipe(csv())
             .on('data', (row) => {
                 rows.push([row["id"], row["text"]]);
+                console.log(row)
             })
             .on('end', () => {
                 const json = JSON.stringify(rows);
