@@ -1,3 +1,5 @@
+import { writeFile } from 'fs/promises';
+
 const saveResultsToCSVFile = async (results) => {
     let csvContent = "ID, Text, " + features.map(feature => feature.name).join(", ") + "\n";
   
