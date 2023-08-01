@@ -20,5 +20,3 @@ export const features = [
         "prompt": "Please score the poem on its coherence and unity on a 1-10 scale, 1 being disjointed and 10 being very coherent and unified. Your response should be in the format of a single number which is your assigned score. Poem: "
       }
     ]
-
-  
