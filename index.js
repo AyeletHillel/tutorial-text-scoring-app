@@ -42,11 +42,23 @@ const main = async (maxAttempts, delay) => {
     let textRatings = [text[0], text[1], featureDict];
     for (let feature of features) {
       const input = feature["prompt"] + "\n" + text[1];
-  
-      const generatedResponse = await processWithRetry(() => getGptResponse(input), maxAttempts, delay);
-      if (generatedResponse) {
-        featureDict[feature["name"]] = generatedResponse;
-      };
+      let waitUntilInt = true
+      while (waitUntilInt) {
+        let generatedResponse = await processWithRetry(() => getGptResponse(input), maxAttempts, delay);
+        if (generatedResponse) {
+          if (!isNaN(generatedResponse)) { //only accept a integer responses from GPT
+            if (generatedResponse.endsWith(".")) { //ChatGPT sometimes returns '3' and sometimes '3.'
+              generatedResponse = generatedResponse.slice(0,-1);
+            }
+            featureDict[feature["name"]] = generatedResponse;
+            waitUntilInt = false;
+          } else {
+            console.log("Not an integer:", generatedResponse);
+          }
+        } else {
+          console.log("No response, trying again");
+        };
+      }
     }
     console.log(textRatings);
     allRatings.push(textRatings);
