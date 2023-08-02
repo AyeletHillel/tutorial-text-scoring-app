@@ -2,15 +2,17 @@ import { config } from "dotenv";
 config();
 import { Configuration, OpenAIApi } from "openai";
 import processWithRetry from "./retryOperation.js";
-import { readCSVFile } from "./getData.js";
+import readCSVFile from "./getData.js";
 import { features } from './features.js';
+import saveResultsToCSVFile from "./saveResultsToCSV.js";
 
 
 const API_KEY = process.env.OPEN_AI_API_KEY;
 const maxAttempts = 10;
 const delay = 1000;
 
-const filePath = "./data/example-poetry-data.csv"
+const filePath = "./data/gpt-answers.csv";
+const outputPath = "./result/gpt-results.csv";
 
 const openAi = new OpenAIApi(
   new Configuration({
@@ -36,21 +38,22 @@ const main = async (maxAttempts, delay) => {
   let allRatings = []
 
   for (let text of texts) {
-    let textRatings = [text[0], text[1]];
+    let featureDict = {}
+    let textRatings = [text[0], text[1], featureDict];
     for (let feature of features) {
       const input = feature["prompt"] + "\n" + text[1];
   
       const generatedResponse = await processWithRetry(() => getGptResponse(input), maxAttempts, delay);
       if (generatedResponse) {
-        textRatings.push(generatedResponse);
+        featureDict[feature["name"]] = generatedResponse;
       };
     }
-    // console.log(textRatings);
+    console.log(textRatings);
     allRatings.push(textRatings);
   }
-  console.log(allRatings)
+  // console.log(allRatings);
 
-  
+  saveResultsToCSVFile(allRatings, outputPath);
 };
 
 main(maxAttempts, delay);

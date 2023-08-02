@@ -2,10 +2,8 @@
 import fs from 'fs';
 import csvParser from 'csv-parser'
 
-const filePath = "./data/example-poetry-data.csv"
-
 // Function to read the CSV file and convert it to a 2D array
-export const readCSVFile = (filePath) => {
+const readCSVFile = (filePath) => {
   return new Promise((resolve, reject) => {
     const data = [];
 
@@ -22,6 +20,8 @@ export const readCSVFile = (filePath) => {
       });
   });
 };
+
+export default readCSVFile;
 
 // (async () => {
 //   try {
