@@ -11,8 +11,8 @@ const API_KEY = process.env.OPEN_AI_API_KEY;
 const maxAttempts = 10;
 const delay = 1000;
 
-const filePath = "./data/gpt-answers.csv";
-const outputPath = "./result/gpt-results.csv";
+const filePath = "./data/example-poetry-data.csv";
+const outputPath = "./result/scoreData.csv";
 
 const openAi = new OpenAIApi(
   new Configuration({
