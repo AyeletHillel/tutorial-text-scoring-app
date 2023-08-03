@@ -14,7 +14,7 @@ async function retryOperation(operation, maxAttempts, delay) {
       }
     }
   }
-}
+};
   
 const processWithRetry = async (operation, maxAttempts, delay) => {
   return retryOperation(operation, maxAttempts, delay).catch((error) => {

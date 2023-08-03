@@ -9,14 +9,14 @@ const saveResultsToCSVFile = async (results, outputPath) => {
       const scoresArray = Object.entries(scoresDict).map(([_, value]) => `${value}`);
       const scoresString = scoresArray.join(",");
       csvContent+= `${id},"${text}",${scoresString}\n`;
-    }
+    };
   
     try {
       await writeFile(outputPath, csvContent);
       console.log('CSV file saved successfully.');
     } catch (err) {
       console.error('Error saving CSV file:', err);
-    }
+    };
   };
 
 export default saveResultsToCSVFile;
