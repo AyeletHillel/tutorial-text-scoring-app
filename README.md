@@ -10,6 +10,7 @@ The application taps into the OpenAI API to evaluate diverse aspects of text. It
 See LinkedIn tutorial: https://www.linkedin.com/pulse/building-text-scoring-app-nodejs-openai-csv-handling-charlie-gottlieb
 
 How to run:
+
 Create .env file with the following:
 `
 OPEN_AI_API_KEY='YOUR-API-KEY'
